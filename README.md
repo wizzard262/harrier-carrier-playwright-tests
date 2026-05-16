@@ -25,3 +25,14 @@ This will create all necessary files, including:
 
 ## run on Github
 - check all code into a new github repo
+- the check-in started the YAML workflow  and concludes successfully running the 2 tests over 3 browsers
+- to manually run the job: from the repo actions page: 
+     - first the YAML needs the *on:* setting to have under it *workflow_dispatch:* (i.e. on: has 3 sub-settings indicating the workflow will run on: PUSH, PR and MANUALLY from Github Actions via a button)
+     - See: https://github.com/wizzard262/harrier-carrier-playwright-tests/blob/main/.github/workflows/playwright.yml
+     - go to: https://github.com/wizzard262/harrier-carrier-playwright-tests/actions/workflows/playwright.yml and click Run Workflow
+
+## convert template to test HarrierCarrier.com
+- rename example.spec.ts to harriercarrier.spec.ts
+- change the tests within to target the content on: https://www.harriercarrier.com
+- in this case there are 6 tests I copied from a .Net Playwright project: https://github.com/wizzard262/HarrierCarrierPostDeployTest
+        * 3 browsers = 18 tests
