@@ -36,3 +36,6 @@ This will create all necessary files, including:
 - change the tests within to target the content on: https://www.harriercarrier.com
 - in this case there are 6 tests I copied from a .Net Playwright project: https://github.com/wizzard262/HarrierCarrierPostDeployTest
         * 3 browsers = 18 tests
+
+## note on reliability
+- all tests run lcoally and on GitHub Actions, but not all reliably in both environments (usually a redirect timeout)
