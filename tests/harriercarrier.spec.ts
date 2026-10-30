@@ -20,7 +20,7 @@ test.describe('Harrier Carrier Homepage', () => {
   test('Clicking Google Play button redirects correctly', async ({ page }) => {
     await page.click("a[href*='play.google.com']");
     await page.waitForLoadState('networkidle');
-    expect(page.url()).toContain("https://play.google.com/store/apps/details?id=garmadon.harriercarriercoldwar");
+    expect(page.url()).toContain("https://play.google.com/store/apps/details?id=com.harriercarrier.coldwar");
   });
 
   test('Clicking YouTube button redirects correctly', async ({ page }) => {
@@ -30,9 +30,10 @@ test.describe('Harrier Carrier Homepage', () => {
   });
 
   test('Clicking Play Now redirects correctly', async ({ page }) => {
-    await page.click("a[href*='game/index.htm']");
+    // The game lives on its own GitHub Pages
+    await page.click("a[href*='harrier-carrier-cold-war']");
     await page.waitForLoadState('networkidle');
-    expect(page.url()).toContain("https://www.harriercarrier.com/game/index.htm");
+    expect(page.url()).toContain("https://wizzard262.github.io/harrier-carrier-cold-war/");
   });
 
   test('Clicking Poster redirects correctly', async ({ page }) => {
@@ -42,9 +43,20 @@ test.describe('Harrier Carrier Homepage', () => {
   });
 
   test('Clicking BattleOfHoth redirects correctly', async ({ page }) => {
-    await page.click("a[href*='battleofhoth/index.html']");
+    await page.click("a[href*='battle-of-hoth']");
     await page.waitForLoadState('networkidle');
-    expect(page.url()).toContain("https://www.harriercarrier.com/battleofhoth/index.html");
+    expect(page.url()).toContain("https://wizzard262.github.io/battle-of-hoth/");
   });
+
+  // Every game lives on its own GitHub Pages: each banner on the home page links there and the page is up
+  const GAMES = ['swooping-simulator', 'future-city-battle', 'railhead', 'beachhead-normandy', 'harrier-carrier-cold-war', 'battle-of-hoth', 'skittle-scramble', 'darwins-finches'];
+  for (const game of GAMES) {
+    test(`${game} link points to a live GitHub Pages game`, async ({ page, request }) => {
+      const url = `https://wizzard262.github.io/${game}/`;
+      await expect(page.locator(`a[href="${url}"]`).first()).toBeAttached();
+      const response = await request.get(url);
+      expect(response.status()).toBe(200);
+    });
+  }
 
 });
