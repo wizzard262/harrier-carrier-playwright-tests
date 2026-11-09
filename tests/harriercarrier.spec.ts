@@ -49,7 +49,7 @@ test.describe('Harrier Carrier Homepage', () => {
   });
 
   // Every game lives on its own GitHub Pages: each banner on the home page links there and the page is up
-  const GAMES = ['swooping-simulator', 'future-city-battle', 'railhead', 'beachhead-normandy', 'harrier-carrier-cold-war', 'battle-of-hoth', 'skittle-scramble', 'darwins-finches'];
+  const GAMES = ['swooping-simulator', 'future-city-battle', 'railhead', 'beachhead-normandy', 'harrier-carrier-cold-war', 'battle-of-hoth', 'skittle-scramble', 'darwins-finches', 'quake_house'];
   for (const game of GAMES) {
     test(`${game} link points to a live GitHub Pages game`, async ({ page, request }) => {
       const url = `https://wizzard262.github.io/${game}/`;
