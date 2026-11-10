@@ -5,12 +5,26 @@ const GAME_URL = process.env.GAME_URL ?? 'https://wizzard262.github.io/harrier-c
 
 // Load the game and wait until its scene is built and the canvas has its final size
 async function openGame(page: Page) {
+  // The game only draws with WebGL; Firefox on the GitHub Actions machine (no graphics card) can't make it, so skip there
+  const canDrawWebGL = await browserHasWebGL(page);
+  test.skip(!canDrawWebGL, 'This browser cannot make a WebGL context (no graphics card), and the game needs one');
   await page.goto(GAME_URL);
   await page.waitForFunction(() => {
     const game = (window as any).game;
     return !!(game && game.state && game.state.created); // the game sets its scaling when its scene is built
   }, undefined, { timeout: 20000 });
   await page.waitForTimeout(1500);
+}
+
+// Ask the browser whether it can make a WebGL drawing surface
+async function browserHasWebGL(page: Page) {
+  return page.evaluate(() => {
+    // Make a spare canvas and try to get WebGL from it
+    const canvas = document.createElement('canvas');
+    const webgl = canvas.getContext('webgl') ?? canvas.getContext('experimental-webgl');
+    // Yes only if a context came back
+    return webgl !== null;
+  });
 }
 
 // Where the canvas is on screen, where Phaser thinks it is, and the page colour around it

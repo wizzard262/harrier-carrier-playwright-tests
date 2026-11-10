@@ -43,3 +43,6 @@ This will create all necessary files, including:
 - the GitHub Actions runner is pinned to ubuntu-24.04
     - ubuntu-latest moved to 26.04, which Playwright 1.60 can't install browsers on
     - STE:TODO: try ubuntu-latest again once Playwright supports 26.04
+- the tall-phone game test is skipped on GitHub Actions Firefox
+    - that machine has no graphics card, so Firefox can't make WebGL, and the game needs it
+    - it still runs there on Chromium and WebKit, and on all 3 browsers on a PC
