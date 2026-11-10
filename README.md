@@ -38,4 +38,8 @@ This will create all necessary files, including:
         * 3 browsers = 18 tests
 
 ## note on reliability
-- all tests run lcoally and on GitHub Actions, but not all reliably in both environments (usually a redirect timeout)
+- the redirect tests used to time out now and then, because they waited for the other site (YouTube, the games) to go quiet
+    - fixed: they now only wait for the browser to move to the new address (expectRedirectTo in the spec)
+- the GitHub Actions runner is pinned to ubuntu-24.04
+    - ubuntu-latest moved to 26.04, which Playwright 1.60 can't install browsers on
+    - STE:TODO: try ubuntu-latest again once Playwright supports 26.04
